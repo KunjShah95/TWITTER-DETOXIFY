@@ -1,22 +1,4 @@
+/* Ensure hidden tweets are completely removed from view */
 .detox-hidden-tweet {
-    /* Option 1: Completely hide the tweet */
-    /* display: none !important; */
-    /* Option 2: Visually indicate it's blocked but keep space (less jarring) */
-    /* opacity: 0.2;
-    pointer-events: none; 
-    border: 2px dashed #ff5722 !important; 
-    overflow: hidden;
-    height: 50px; */
-    /* Option 3: Collapse with a message (More complex, requires JS to add the message element) */
-    /* For now, let's go with a simple visual cue that it is filtered */
-    border-left: 5px solid #8E44AD !important;
-    /* Accent border */
-    opacity: 0.3;
-    /* Make it faded */
-    transition: opacity 0.5s ease-in-out;
-}
-
-.detox-hidden-tweet:hover {
-    opacity: 0.05;
-    /* Nearly invisible on hover, to show it's interactable but not primary */
+    display: none !important;
 }

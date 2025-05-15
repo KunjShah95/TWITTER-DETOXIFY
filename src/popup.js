@@ -49,12 +49,12 @@ document.addEventListener('DOMContentLoaded', () => {
             if (textSpan && defaultText) {
                 textSpan.textContent = defaultText;
             } else if (textSpan) {
-                 if (button.id === 'blockBtn') textSpan.textContent = 'Start Site Block';
-                 else if (button.id === 'unlockBtn') textSpan.textContent = 'Unlock Site Now';
-                 else if (button.id === 'saveKeywordsBtn') textSpan.textContent = 'Save Keywords';
-                 else if (button.id === 'saveBlockedUsersBtn') textSpan.textContent = 'Save Blocked Users';
-                 else if (button.id === 'saveContentFiltersBtn') textSpan.textContent = 'Apply Content Filters';
-                 else if (button.id === 'resetStatsBtn') textSpan.textContent = 'Reset Stats';
+                if (button.id === 'blockBtn') textSpan.textContent = 'Start Site Block';
+                else if (button.id === 'unlockBtn') textSpan.textContent = 'Unlock Site Now';
+                else if (button.id === 'saveKeywordsBtn') textSpan.textContent = 'Save Keywords';
+                else if (button.id === 'saveBlockedUsersBtn') textSpan.textContent = 'Save Blocked Users';
+                else if (button.id === 'saveContentFiltersBtn') textSpan.textContent = 'Apply Content Filters';
+                else if (button.id === 'resetStatsBtn') textSpan.textContent = 'Reset Stats';
             }
             if (spinner) spinner.classList.add('hidden');
         }
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
             element.classList.remove('h-0', 'opacity-0', 'p-0');
             element.classList.add('min-h-[32px]', 'p-2');
             requestAnimationFrame(() => {
-                 element.classList.add('opacity-100');
+                element.classList.add('opacity-100');
             });
         } else {
             element.classList.remove('opacity-100');
@@ -90,7 +90,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     element.textContent = '';
                     element.classList.remove('min-h-[32px]', 'p-2');
                     element.classList.add('h-0', 'p-0');
-                     Object.values(typeColorClasses).flat().forEach(cls => element.classList.remove(cls));
+                    Object.values(typeColorClasses).flat().forEach(cls => element.classList.remove(cls));
                 }
             }, 300);
         }
@@ -132,8 +132,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 blockBtn.style.display = 'none';
                 unlockBtn.style.display = 'block';
             } else {
-                 if (!statusEl.textContent || !statusEl.textContent.includes('not currently site-blocked')) {
-                   setStatus(statusEl, 'Twitter is not currently site-blocked.', 'default');
+                if (!statusEl.textContent || !statusEl.textContent.includes('not currently site-blocked')) {
+                    setStatus(statusEl, 'Twitter is not currently site-blocked.', 'default');
                 }
                 blockBtn.style.display = 'block';
                 unlockBtn.style.display = 'none';
@@ -149,13 +149,19 @@ document.addEventListener('DOMContentLoaded', () => {
             setStatus(statusEl, 'Please select a valid duration.', 'error');
             return;
         }
-        chrome.runtime.sendMessage({ action: 'blockTwitter', minutes: totalMinutes });
+        chrome.runtime.sendMessage({ action: 'blockTwitter', minutes: totalMinutes }).catch(error => {
+            console.error("Error sending blockTwitter message:", error.message);
+            setStatus(statusEl, "Failed to start block. Please try again.", "error");
+        });
         setStatus(statusEl, `Site block starting for ${hours}h ${minutes}m...`, 'default');
         updateTimerDisplayStatus();
     });
 
     unlockBtn.addEventListener('click', () => {
-        chrome.runtime.sendMessage({ action: 'unlockTwitter' });
+        chrome.runtime.sendMessage({ action: 'unlockTwitter' }).catch(error => {
+            console.error("Error sending unlockTwitter message:", error.message);
+            setStatus(statusEl, "Failed to unlock. Please try again.", "error");
+        });
         setStatus(statusEl, 'Site unlocked!', 'success');
         updateTimerDisplayStatus();
     });
@@ -194,18 +200,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => setStatus(keywordsStatusEl, '', 'default'), 3000);
                 return;
             }
-            chrome.runtime.sendMessage({ action: 'updateKeywords', keywords }, () => {
-                if (chrome.runtime.lastError) {
-                    console.warn("Error sending updateKeywords message (but keywords are saved):", chrome.runtime.lastError.message);
-                }
-                setButtonLoading(saveKeywordsBtn, false, 'Save Keywords');
-                setStatus(keywordsStatusEl, 'Keywords saved!', 'success');
-                setTimeout(() => setStatus(keywordsStatusEl, '', 'default'), 3000);
-            });
+            chrome.runtime.sendMessage({ action: 'updateKeywords', keywords })
+                .then(response => {
+                    console.log("Keywords updated successfully:", response);
+                })
+                .catch(error => {
+                    console.warn("Error sending updateKeywords message:", error.message);
+                })
+                .finally(() => {
+                    setButtonLoading(saveKeywordsBtn, false, 'Save Keywords');
+                    setStatus(keywordsStatusEl, 'Keywords saved!', 'success');
+                    setTimeout(() => setStatus(keywordsStatusEl, '', 'default'), 3000);
+                });
         });
     });
 
-     if (clearBlockedUsersBtn) {
+    if (clearBlockedUsersBtn) {
         clearBlockedUsersBtn.addEventListener('click', () => {
             blockedUsersTextarea.value = '';
             setStatus(blockedUsersStatusEl, 'Blocked users cleared from input.', 'default');
@@ -233,6 +243,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const users = blockedUsersTextarea.value.split('\n')
             .map(u => u.trim().replace(/^@/, ''))
             .filter(u => u);
+
         chrome.storage.local.set({ blockedUsernames: users }, () => {
             if (chrome.runtime.lastError) {
                 console.error("Error saving blocked users to storage:", chrome.runtime.lastError.message);
@@ -241,14 +252,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => setStatus(blockedUsersStatusEl, '', 'default'), 3000);
                 return;
             }
-            chrome.runtime.sendMessage({ action: 'updateBlockedUsers', blockedUsernames: users }, () => {
-                 if (chrome.runtime.lastError) {
-                    console.warn("Error sending updateBlockedUsers message (but users are saved):", chrome.runtime.lastError.message);
-                }
-                setButtonLoading(saveBlockedUsersBtn, false, 'Save Blocked Users');
-                setStatus(blockedUsersStatusEl, 'Blocked users list saved!', 'success');
-                setTimeout(() => setStatus(blockedUsersStatusEl, '', 'default'), 3000);
-            });
+
+            chrome.runtime.sendMessage({ action: 'updateBlockedUsers', blockedUsernames: users })
+                .then(response => {
+                    console.log("Blocked users updated successfully:", response);
+                    setStatus(blockedUsersStatusEl, 'Blocked users list saved!', 'success');
+                    setTimeout(() => setStatus(blockedUsersStatusEl, '', 'default'), 3000);
+                })
+                .catch(error => {
+                    console.warn("Error sending updateBlockedUsers message:", error.message);
+                    setStatus(blockedUsersStatusEl, 'Could not update blocked users in background.', 'error');
+                    setTimeout(() => setStatus(blockedUsersStatusEl, '', 'default'), 3000);
+                })
+                .finally(() => {
+                    setButtonLoading(saveBlockedUsersBtn, false, 'Save Blocked Users');
+                });
         });
     });
 
@@ -268,7 +286,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 hideVideosCheckbox.checked = false;
             }
         });
-         setStatus(contentFiltersStatusEl, '', 'default');
+        setStatus(contentFiltersStatusEl, '', 'default');
     }
 
     saveContentFiltersBtn.addEventListener('click', () => {
@@ -285,23 +303,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 setTimeout(() => setStatus(contentFiltersStatusEl, '', 'default'), 3000);
                 return;
             }
-            chrome.runtime.sendMessage({ action: 'updateContentFilters', contentFilters: filters }, () => {
-                if (chrome.runtime.lastError) {
-                    console.warn("Error sending updateContentFilters message (but filters are saved):", chrome.runtime.lastError.message);
-                }
-                setButtonLoading(saveContentFiltersBtn, false, 'Apply Content Filters');
-                setStatus(contentFiltersStatusEl, 'Content filters applied!', 'success');
-                setTimeout(() => setStatus(contentFiltersStatusEl, '', 'default'), 3000);
-            });
+            chrome.runtime.sendMessage({ action: 'updateContentFilters', contentFilters: filters })
+                .then(response => {
+                    console.log("Content filters updated successfully:", response);
+                })
+                .catch(error => {
+                    console.warn("Error sending updateContentFilters message:", error.message);
+                })
+                .finally(() => {
+                    setButtonLoading(saveContentFiltersBtn, false, 'Apply Content Filters');
+                    setStatus(contentFiltersStatusEl, 'Content filters applied!', 'success');
+                    setTimeout(() => setStatus(contentFiltersStatusEl, '', 'default'), 3000);
+                });
         });
     });
 
     // --- Detoxification Summary Logic ---
     function updateStatsDisplay(stats) {
-        const kCount = stats?.keywords ?? 0;
-        const uCount = stats?.users ?? 0;
-        const iCount = stats?.images ?? 0;
-        const vCount = stats?.videos ?? 0;
+        const kCount = (stats && stats.keywords) ? stats.keywords : 0;
+        const uCount = (stats && stats.users) ? stats.users : 0;
+        const iCount = (stats && stats.images) ? stats.images : 0;
+        const vCount = (stats && stats.videos) ? stats.videos : 0;
 
         keywordsCountEl.textContent = kCount;
         usersCountEl.textContent = uCount;
@@ -316,54 +338,77 @@ document.addEventListener('DOMContentLoaded', () => {
             summaryContentEl.classList.remove('hidden');
             summaryEmptyStateEl.classList.add('hidden');
         }
-    }
-
-    function loadAndDisplayStats() {
-         setStatus(statsStatusEl, '', 'default');
+    }    function loadAndDisplayStats() {
+        setStatus(statsStatusEl, '', 'default');
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+            if (chrome.runtime.lastError) {
+                console.error("Error querying tabs:", chrome.runtime.lastError);
+                updateStatsDisplay({});
+                setStatus(statsStatusEl, "Error accessing tabs.", "error");
+                setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                return;
+            }
+            
             const currentTab = tabs[0];
             if (currentTab && currentTab.id && currentTab.url && (currentTab.url.startsWith('https://twitter.com') || currentTab.url.startsWith('https://x.com'))) {
+                // Use a callback pattern instead of promise to avoid potential anonymous errors
                 chrome.tabs.sendMessage(currentTab.id, { action: 'getDetoxStats' }, (response) => {
                     if (chrome.runtime.lastError) {
-                        console.warn("Could not get stats for display:", chrome.runtime.lastError.message);
-                         updateStatsDisplay({}); // Show empty state
-                    } else if (response) {
+                        console.warn("Error getting stats:", chrome.runtime.lastError.message);
+                        updateStatsDisplay({});
+                        setStatus(statsStatusEl, "Could not load stats.", "error");
+                        setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                        return;
+                    }
+                    
+                    if (response) {
                         updateStatsDisplay(response);
                     } else {
-                         console.warn("No response when getting stats for display.");
+                        console.warn("No response when getting stats for display.");
                         updateStatsDisplay({}); // Show empty state
                     }
                 });
             } else {
                 updateStatsDisplay({}); // Show empty state if not on Twitter/X
+                setStatus(statsStatusEl, "Visit Twitter/X to see stats.", "default");
+                setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
             }
         });
-    }
-
-    resetStatsBtn.addEventListener('click', () => {
+    }    resetStatsBtn.addEventListener('click', () => {
         setButtonLoading(resetStatsBtn, true, 'Reset Stats');
         chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-             const currentTab = tabs[0];
+            if (chrome.runtime.lastError) {
+                console.error("Error querying tabs:", chrome.runtime.lastError);
+                setButtonLoading(resetStatsBtn, false, 'Reset Stats');
+                setStatus(statsStatusEl, "Error accessing tabs.", "error");
+                setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                return;
+            }
+            
+            const currentTab = tabs[0];
             if (currentTab && currentTab.id && currentTab.url && (currentTab.url.startsWith('https://twitter.com') || currentTab.url.startsWith('https://x.com'))) {
                 chrome.tabs.sendMessage(currentTab.id, { action: 'resetDetoxStats' }, (response) => {
-                    setButtonLoading(resetStatsBtn, false, 'Reset Stats');
                     if (chrome.runtime.lastError) {
-                        console.error("Error resetting stats via message:", chrome.runtime.lastError.message);
-                        setStatus(statsStatusEl, 'Failed to reset stats.', 'error');
-                         setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
-                    } else if (response && response.success) {
+                        console.error("Error resetting stats:", chrome.runtime.lastError.message);
+                        setButtonLoading(resetStatsBtn, false, 'Reset Stats');
+                        setStatus(statsStatusEl, "Could not reset stats.", "error");
+                        setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                        return;
+                    }
+                      if (response && response.success) {
                         updateStatsDisplay({ keywords: 0, users: 0, images: 0, videos: 0 });
                         setStatus(statsStatusEl, 'Stats reset!', 'success');
-                        setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
                     } else {
-                        setStatus(statsStatusEl, 'Failed to reset stats (no success).', 'error');
-                         setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                        console.error("Failed to reset stats (no success response).");
+                        setStatus(statsStatusEl, 'Failed to reset stats.', 'error');
                     }
-                });
-            } else {
+                    
+                    setButtonLoading(resetStatsBtn, false, 'Reset Stats');
+                    setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                });} else {
                 setButtonLoading(resetStatsBtn, false, 'Reset Stats');
                 setStatus(statsStatusEl, 'Cannot reset (visit Twitter/X).', 'error');
-                 setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
+                setTimeout(() => setStatus(statsStatusEl, '', 'default'), 3000);
             }
         });
     });
@@ -380,4 +425,33 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('unload', () => {
         clearInterval(timerInterval);
     });
+});
+
+// Ensure the message listener is set up correctly
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    let needsReFilter = false;
+    if (message.action === 'updateKeywords') {
+        blockedKeywords = message.keywords || [];
+        needsReFilter = true;
+    }
+    if (message.action === 'updateBlockedUsers') {
+        blockedUsernames = message.blockedUsernames || [];
+        needsReFilter = true;
+    }
+    if (message.action === 'updateContentFilters') {
+        contentFilters = message.contentFilters || { hideImages: false, hideVideos: false };
+        needsReFilter = true;
+    }
+    if (message.action === 'getDetoxStats') {
+        sendResponse(detoxStats);
+    }
+    if (message.action === 'resetDetoxStats') {
+        detoxStats = { keywords: 0, users: 0, images: 0, videos: 0 };
+        saveDetoxStats();
+        sendResponse({ success: true });
+    }
+
+    if (needsReFilter) {
+        filterTweets(); // Re-filter with new keywords or users
+    }
 });

@@ -16,33 +16,28 @@
         <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-slate-600/70 text-slate-100 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 mr-2 -mt-0.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-            Site Blocker
+            </svg> Site Blocker
         </h3>
         <div class="grid grid-cols-2 gap-4 mb-5">
             <div>
                 <label for="hours" class="block mb-1 text-sm font-medium text-slate-300">Hours:</label>
-                <select id="hours" title="Select hours to block Twitter/X"
-                    class="block w-full p-2 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70">
+                <select id="hours" title="Select hours to block Twitter/X" class="block w-full p-2 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70">
                 </select>
             </div>
             <div>
                 <label for="minutes" class="block mb-1 text-sm font-medium text-slate-300">Minutes:</label>
-                <select id="minutes" title="Select minutes to block Twitter/X"
-                    class="block w-full p-2 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70">
+                <select id="minutes" title="Select minutes to block Twitter/X" class="block w-full p-2 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70">
                 </select>
             </div>
         </div>
-        <button id="blockBtn" title="Start blocking Twitter/X for the selected duration"
-            class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
+        <button id="blockBtn" title="Start blocking Twitter/X for the selected duration" class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
             <span class="button-text">Start Site Block</span>
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden button-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <button id="unlockBtn" title="Immediately stop blocking Twitter/X"
-            class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-red-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-red-500 hover:shadow-lg active:bg-red-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center"
+        <button id="unlockBtn" title="Immediately stop blocking Twitter/X" class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-red-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-red-500 hover:shadow-lg active:bg-red-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center"
             style="display: none;">
             <span class="button-text">Unlock Site Now</span>
              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden button-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
@@ -50,8 +45,7 @@
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <div id="status"
-             class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
+        <div id="status" class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
         </div>
     </div>
 
@@ -61,29 +55,25 @@
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 mr-2 -mt-0.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M9.568 3H5.25A2.25 2.25 0 0 0 3 5.25v4.318c0 .597.237 1.17.659 1.591l9.581 9.581c.699.699 1.78.872 2.607.33a18.095 18.095 0 0 0 5.223-5.223c.542-.827.369-1.908-.33-2.607L11.16 3.66A2.25 2.25 0 0 0 9.568 3Z" />
               <path stroke-linecap="round" stroke-linejoin="round" d="M6 6h.008v.008H6V6Z" />
-            </svg>
-            Keyword Filtering
+            </svg> Keyword Filtering
         </h3>
         <div class="relative">
             <label for="keywords" class="block mb-1 text-sm font-medium text-slate-300">Keywords to Hide (one per line):</label>
-            <textarea id="keywords" rows="3" placeholder="e.g., politics, drama..." title="Enter keywords to filter from your feed, one per line."
-                class="block w-full p-2 pr-8 mb-4 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base min-h-[60px] resize-y focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70 placeholder:text-slate-400"></textarea>
+            <textarea id="keywords" rows="3" placeholder="e.g., politics, drama..." title="Enter keywords to filter from your feed, one per line." class="block w-full p-2 pr-8 mb-4 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base min-h-[60px] resize-y focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70 placeholder:text-slate-400"></textarea>
             <span id="clearKeywordsBtn" class="absolute top-9 right-2.5 text-slate-400 hover:text-slate-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-400 rounded" title="Clear keywords">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </span>
         </div>
-        <button id="saveKeywordsBtn" title="Save the list of keywords to storage and apply filtering."
-            class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
+        <button id="saveKeywordsBtn" title="Save the list of keywords to storage and apply filtering." class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
             <span class="button-text">Save Keywords</span>
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden button-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <div id="keywordsStatus"
-             class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
+        <div id="keywordsStatus" class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
         </div>
     </div>
 
@@ -92,29 +82,25 @@
         <h3 class="text-lg font-semibold mb-3 pb-2 border-b border-slate-600/70 text-slate-100 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 mr-2 -mt-0.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-            </svg>
-            User Blocking
+            </svg> User Blocking
         </h3>
         <div class="relative">
             <label for="blockedUsers" class="block mb-1 text-sm font-medium text-slate-300">Blocked Users (one per line, no @):</label>
-            <textarea id="blockedUsers" rows="3" placeholder="e.g., annoyingUser123" title="Enter Twitter usernames to block (without '@'), one per line."
-                class="block w-full p-2 pr-8 mb-4 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base min-h-[60px] resize-y focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70 placeholder:text-slate-400"></textarea>
-             <span id="clearBlockedUsersBtn" class="absolute top-9 right-2.5 text-slate-400 hover:text-slate-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-400 rounded" title="Clear blocked users">
+            <textarea id="blockedUsers" rows="3" placeholder="e.g., annoyingUser123" title="Enter Twitter usernames to block (without '@'), one per line." class="block w-full p-2 pr-8 mb-4 border border-slate-600 rounded-md bg-slate-700/80 text-slate-100 text-base min-h-[60px] resize-y focus:outline-none focus:border-cyan-500 focus:ring-2 focus:ring-cyan-500/70 placeholder:text-slate-400"></textarea>
+            <span id="clearBlockedUsersBtn" class="absolute top-9 right-2.5 text-slate-400 hover:text-slate-200 cursor-pointer focus:outline-none focus:ring-2 focus:ring-slate-400 rounded" title="Clear blocked users">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </span>
         </div>
-        <button id="saveBlockedUsersBtn" title="Save the list of blocked users and apply filtering."
-            class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
+        <button id="saveBlockedUsersBtn" title="Save the list of blocked users and apply filtering." class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
             <span class="button-text">Save Blocked Users</span>
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden button-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <div id="blockedUsersStatus"
-             class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
+        <div id="blockedUsersStatus" class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
         </div>
     </div>
 
@@ -123,31 +109,26 @@
         <h3 class="text-lg font-semibold mb-3 pb-2 border-b border-slate-600/70 text-slate-100 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 mr-2 -mt-0.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M12 3c2.755 0 5.455.232 8.083.678.533.09.917.556.917 1.096v1.044a2.25 2.25 0 0 1-.659 1.591l-5.432 5.432a2.25 2.25 0 0 0-.659 1.591v2.927a2.25 2.25 0 0 1-1.244 2.013L9.75 21v-6.572a2.25 2.25 0 0 0-.659-1.591L3.659 7.409A2.25 2.25 0 0 1 3 5.818V4.774c0-.54.384-1.006.917-1.096A48.32 48.32 0 0 1 12 3Z" />
-            </svg>
-            Content Filtering
+            </svg> Content Filtering
         </h3>
         <div class="space-y-3 mb-4">
             <div class="flex items-center">
-                <input type="checkbox" id="hideImages" name="hideImages" title="Check to hide tweets containing images."
-                    class="h-4 w-4 rounded border-slate-500 bg-slate-700 text-cyan-500 focus:ring-offset-slate-800 focus:ring-2 focus:ring-cyan-500/70">
+                <input type="checkbox" id="hideImages" name="hideImages" title="Check to hide tweets containing images." class="h-4 w-4 rounded border-slate-500 bg-slate-700 text-cyan-500 focus:ring-offset-slate-800 focus:ring-2 focus:ring-cyan-500/70">
                 <label for="hideImages" class="ml-2 text-sm text-slate-200 cursor-pointer">Hide tweets with images</label>
             </div>
             <div class="flex items-center">
-                <input type="checkbox" id="hideVideos" name="hideVideos" title="Check to hide tweets containing videos."
-                    class="h-4 w-4 rounded border-slate-500 bg-slate-700 text-cyan-500 focus:ring-offset-slate-800 focus:ring-2 focus:ring-cyan-500/70">
+                <input type="checkbox" id="hideVideos" name="hideVideos" title="Check to hide tweets containing videos." class="h-4 w-4 rounded border-slate-500 bg-slate-700 text-cyan-500 focus:ring-offset-slate-800 focus:ring-2 focus:ring-cyan-500/70">
                 <label for="hideVideos" class="ml-2 text-sm text-slate-200 cursor-pointer">Hide tweets with videos</label>
             </div>
         </div>
-        <button id="saveContentFiltersBtn" title="Apply the selected content filters."
-            class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
+        <button id="saveContentFiltersBtn" title="Apply the selected content filters." class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-cyan-600 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-cyan-500 hover:shadow-lg active:bg-cyan-700 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
             <span class="button-text">Apply Content Filters</span>
             <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden button-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <div id="contentFiltersStatus"
-             class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
+        <div id="contentFiltersStatus" class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
         </div>
     </div>
 
@@ -156,8 +137,7 @@
         <h3 class="text-lg font-semibold mb-3 pb-2 border-b border-slate-600/70 text-slate-100 flex items-center">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-5 h-5 mr-2 -mt-0.5">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 0 1 3 19.875v-6.75ZM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V8.625ZM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 0 1-1.125-1.125V4.125Z" />
-            </svg>
-            Detox Summary
+            </svg> Detox Summary
         </h3>
         <div id="summaryContent" class="space-y-1 text-sm text-slate-300 mb-4">
             <p>Keywords Filtered: <span id="keywordsCount" class="font-semibold text-cyan-400">0</span></p>
@@ -168,16 +148,14 @@
         <div id="summaryEmptyState" class="text-sm text-slate-400 italic mb-4 hidden">
             No filtering activity yet. Start detoxing your feed!
         </div>
-        <button id="resetStatsBtn" title="Reset all filtering statistics to zero."
-            class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-slate-500 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-slate-400 hover:shadow-lg active:bg-slate-600 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
+        <button id="resetStatsBtn" title="Reset all filtering statistics to zero." class="block w-full py-2.5 px-4 mb-1 border-none rounded-md bg-slate-500 text-white text-base font-semibold cursor-pointer transition-all duration-200 ease-out shadow-md hover:bg-slate-400 hover:shadow-lg active:bg-slate-600 active:scale-[0.98] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-800 flex items-center justify-center">
             <span class="button-text">Reset Stats</span>
              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden button-spinner" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
             </svg>
         </button>
-        <div id="statsStatus"
-             class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
+        <div id="statsStatus" class="mt-2 rounded text-sm text-center font-medium transition-all duration-300 ease-in-out opacity-0 overflow-hidden h-0">
         </div>
     </div>
 

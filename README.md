@@ -174,7 +174,7 @@ This project is under the [MIT License](LICENSE).
 **Kunj Shah**
 
 - GitHub: [@KunjShah95](https://github.com/KunjShah95)
-- Email: `kunjshah572005@example.com` 
+- Email: `kunjshah572005@gmail.com` 
 ---
 
 ## 🙏 Acknowledgments
