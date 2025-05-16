@@ -1,5 +1,3 @@
 {
-    "editor.acceptSuggestionOnEnter": "on",
-    "livePreview.defaultPreviewPath": "/src/popup.html",
-    "liveServer.settings.port": 5501
+    "editor.acceptSuggestionOnEnter": "on"
 }
